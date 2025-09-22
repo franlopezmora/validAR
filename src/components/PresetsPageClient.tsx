@@ -1,12 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { AuthButtons } from "@/components/AuthButtons";
-import { applyPattern } from "@/lib/validar/pattern";
-import { validateCUIT, formatCUIT } from "@/lib/validar/cuit";
-import { validatePatente, applyPlatePattern } from "@/lib/validar/patente";
-import { validatePhoneAR, normalizeARPhoneE164, formatARPhonePretty } from "@/lib/validar/phone";
-import { validateCBU, formatCBU } from "@/lib/validar/cbu";
-import { validateCVU, formatCVU } from "@/lib/validar/cvu";
+import { applyPattern, validateCUIT, formatCUIT, validatePatente, applyPlatePattern, validatePhoneAR, normalizeARPhoneE164, formatARPhonePretty, validateCBU, formatCBU, validateCVU, formatCVU } from "@validar/core";
 
 type Preset = { id:string; type:string; name:string; pattern?:string; isDefault:boolean; };
 
@@ -139,6 +134,15 @@ export default function PresetsPageClient() {
         </div>
         <button onClick={save} className="px-3 py-2 rounded bg-black text-white">Guardar</button>
         <p className="text-xs opacity-70">Requiere sesión. El preset se guarda asociado a tu usuario.</p>
+        <div className="flex gap-2 pt-2">
+          <a href="/api/presets/export" className="px-3 py-2 rounded bg-neutral-900 text-white inline-block">Exportar presets</a>
+          <input type="file" accept="application/json" onChange={async (e)=>{
+            const file = e.target.files?.[0]; if (!file) return;
+            const text = await file.text();
+            await fetch("/api/presets/import", { method:"POST", headers:{ "Content-Type":"application/json" }, body: text });
+            load();
+          }} className="border p-2 rounded" />
+        </div>
       </div>
 
       <div className="p-4 border rounded-xl space-y-3">
