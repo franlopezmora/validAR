@@ -4,12 +4,12 @@
   "private": false,
   "type": "module",
   "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
@@ -19,9 +19,8 @@
     "build": "tsup src/index.ts --format cjs,esm --dts --clean"
   },
   "devDependencies": {
-    "tsup": "^8.3.0",
-    "typescript": "^5.0.0",
-    "@types/node": "^20.0.0"
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
   }
 }
 

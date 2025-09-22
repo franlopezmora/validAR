@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { validateCUIT } from "@/lib/validar/cuit";
+import { validateCUIT } from "@validar/core";
 import { rateLimit } from "@/lib/ratelimit";
 import { getIp } from "@/lib/ip";
 
 export async function POST(req: NextRequest) {
-  const ip = getIp();
+  const ip = await getIp();
   const rl = rateLimit(ip);
   if (!rl.ok) return new NextResponse(JSON.stringify({ ok:false, error:"rate_limited" }), { status:429, headers: rl.headers });
 

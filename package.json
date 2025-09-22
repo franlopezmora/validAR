@@ -2,6 +2,7 @@
   "name": "validar",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.16.1",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "pnpm --filter @validar/core build && prisma migrate deploy && next build",
@@ -19,8 +20,8 @@
     "@prisma/client": "^6.16.2",
     "next": "15.5.3",
     "next-auth": "^4.24.11",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
