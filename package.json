@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pnpm --filter @validar/core build && prisma migrate deploy && next build",
+    "build": "prisma migrate deploy && next build",
     "start": "next start",
-    "postinstall": "prisma generate",
+    "postinstall": "cd packages/core && pnpm build && cd ../.. && prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "db:reset": "prisma migrate reset --force"
   },
   "dependencies": {
-    "@validar/core": "workspace:*",
+    "@validar/core": "file:./packages/core",
     "@auth/core": "^0.40.0",
     "@auth/prisma-adapter": "^2.10.0",
     "@prisma/client": "^6.16.2",
