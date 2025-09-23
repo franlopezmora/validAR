@@ -1,26 +1,293 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  height: 100%;
+  width: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tema oscuro */
+[data-theme="dark"] {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] body {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .bg-gray-900 {
+  background-color: #111827 !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #111827 !important;
+}
+
+[data-theme="dark"] .text-white {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-gray-900 {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+[data-theme="dark"] .text-gray-300 {
+  color: #d1d5db !important;
+}
+
+[data-theme="dark"] .bg-gray-800 {
+  background-color: #1f2937 !important;
+}
+
+[data-theme="dark"] .bg-gray-700 {
+  background-color: #374151 !important;
+}
+
+[data-theme="dark"] .border-gray-700 {
+  border-color: #374151 !important;
+}
+
+[data-theme="dark"] .border-gray-800 {
+  border-color: #1f2937 !important;
+}
+
+/* Tema claro - Estilo minimalista */
+[data-theme="light"] {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+[data-theme="light"] body {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+[data-theme="light"] .bg-gray-900 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-white {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .text-white {
+  color: #1f2937 !important;
+}
+
+[data-theme="light"] .text-gray-900 {
+  color: #1f2937 !important;
+}
+
+[data-theme="light"] .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+[data-theme="light"] .text-gray-300 {
+  color: #6b7280 !important;
+}
+
+[data-theme="light"] .bg-gray-800 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-gray-800\/50 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-gray-700 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-gray-700\/50 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-gray-600 {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .border-gray-700 {
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .border-gray-800 {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .border-gray-600 {
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .border-gray-500 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Header y páginas principales en tema claro */
+[data-theme="light"] .bg-white\/95 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .backdrop-blur-sm {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .min-h-screen.bg-gray-900 {
+  background-color: #ffffff !important;
+}
+
+/* Botones en tema claro */
+[data-theme="light"] .bg-gray-700:hover {
+  background-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .bg-blue-600 {
+  background-color: #1f2937 !important;
+}
+
+[data-theme="light"] .bg-blue-600:hover {
+  background-color: #374151 !important;
+}
+
+[data-theme="light"] .bg-blue-600 {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-blue-600:hover {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .border-blue-500 {
+  border-color: #1f2937 !important;
+}
+
+[data-theme="light"] .border-blue-400 {
+  border-color: #374151 !important;
+}
+
+/* Focus de inputs en tema claro */
+[data-theme="light"] .focus\:ring-blue-500:focus {
+  --tw-ring-color: #1f2937 !important;
+}
+
+[data-theme="light"] .focus\:ring-2:focus {
+  --tw-ring-width: 2px !important;
+}
+
+/* Combo box en tema claro */
+[data-theme="light"] select {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] select:focus {
+  border-color: #1f2937 !important;
+  --tw-ring-color: #1f2937 !important;
+}
+
+[data-theme="light"] select option {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  padding: 8px 12px !important;
+}
+
+[data-theme="light"] select option:hover {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] select option:checked {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+}
+
+/* Dropdown del menú de usuario en tema claro */
+[data-theme="light"] .bg-gray-800 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .border-gray-700 {
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .hover\:bg-gray-700:hover {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="light"] .text-gray-300 {
+  color: #6b7280 !important;
+}
+
+[data-theme="light"] .hover\:text-white:hover {
+  color: #1f2937 !important;
+}
+
+/* Dropdown personalizado en tema claro */
+[data-theme="light"] .bg-gray-700 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-gray-600 {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .bg-gray-800 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .text-gray-300 {
+  color: #6b7280 !important;
+}
+
+[data-theme="light"] .text-white {
+  color: #1f2937 !important;
+}
+
+[data-theme="light"] .bg-blue-600 {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+}
+
+[data-theme="light"] .bg-gray-500 {
+  background-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .hover\:bg-gray-500:hover {
+  background-color: #cbd5e1 !important;
+}
+
+#__next {
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
 }

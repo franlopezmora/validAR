@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import {
   validateCUIT, formatCUIT,
   validateDNI, formatDNI,
@@ -14,10 +13,8 @@ import {
 
 type Preset = { id:string; type:"cuit"|"dni"|"alias"|"plate"|"phone"|"cbu"|"cvu"|string; name:string; pattern?:string; isDefault:boolean; };
 
-export default function PresetsPageClient() {
+export default function DashboardClient() {
   const [items, setItems] = useState<Preset[]>([]);
-  const [name, setName] = useState("Con guiones");
-  const [pattern, setPattern] = useState("NN-NNNNNNNN-N");
   
   // Inputs
   const [cuitInput, setCuitInput] = useState("");
@@ -63,15 +60,6 @@ export default function PresetsPageClient() {
   
   useEffect(() => { load(); }, []);
 
-  async function save() {
-    const r = await fetch("/api/presets", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "cuit", name, pattern, isDefault: true }),
-    });
-    if (r.ok) load();
-  }
-
   // Format functions
   const formatCuit = (input: string) => {
     if (cuitPattern) return applyPattern(input, cuitPattern);
@@ -115,18 +103,13 @@ export default function PresetsPageClient() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-            <p className="text-gray-400">Valida y formatea documentos argentinos</p>
+            <p className="text-gray-400">Valida y formatea documentos argentinos en tiempo real</p>
           </div>
         </div>
       </div>
 
-
-      {/* Validadores Section */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-white mb-4">Validadores</h2>
-        <p className="text-gray-400 mb-6">Prueba y valida documentos argentinos en tiempo real</p>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Validadores Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* CUIT Card */}
         <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
           <div className="flex items-center justify-between mb-4">
@@ -137,7 +120,7 @@ export default function PresetsPageClient() {
               {cuitInput ? (validateCUIT(cuitInput) ? "Válido" : "Inválido") : "—"}
             </span>
           </div>
-          <p className="text-sm text-gray-400 mb-4">Preset: {cuitPattern ?? "—"}</p>
+          <p className="text-sm text-gray-400 mb-4">Formato: {cuitPattern ?? "Por defecto"}</p>
           <div className="space-y-3">
             <input
               value={cuitInput}
@@ -147,7 +130,7 @@ export default function PresetsPageClient() {
             />
             <button
               onClick={() => setCuitInput(formatCuit(cuitInput))}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg border border-blue-500 hover:bg-blue-700 hover:border-blue-400 transition-colors duration-200 cursor-pointer"
             >
               Formatear
             </button>
@@ -164,7 +147,7 @@ export default function PresetsPageClient() {
               {dniInput ? (validateDNI(dniInput) ? "Válido" : "Inválido") : "—"}
             </span>
           </div>
-          <p className="text-sm text-gray-400 mb-4">Preset: {dniPattern ?? "—"}</p>
+          <p className="text-sm text-gray-400 mb-4">Formato: {dniPattern ?? "Por defecto"}</p>
           <div className="space-y-3">
             <input
               value={dniInput}
@@ -174,7 +157,7 @@ export default function PresetsPageClient() {
             />
             <button
               onClick={() => setDniInput(formatDni(dniInput))}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg border border-blue-500 hover:bg-blue-700 hover:border-blue-400 transition-colors duration-200 cursor-pointer"
             >
               Formatear
             </button>
@@ -212,7 +195,7 @@ export default function PresetsPageClient() {
               {plateInput ? (validatePatente(plateInput) ? "Válida" : "Inválida") : "—"}
             </span>
           </div>
-          <p className="text-sm text-gray-400 mb-4">Preset: {platePattern ?? "—"}</p>
+          <p className="text-sm text-gray-400 mb-4">Formato: {platePattern ?? "Por defecto"}</p>
           <div className="space-y-3">
             <input
               value={plateInput}
@@ -222,7 +205,7 @@ export default function PresetsPageClient() {
             />
             <button
               onClick={() => setPlateInput(formatPlate(plateInput))}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg border border-blue-500 hover:bg-blue-700 hover:border-blue-400 transition-colors duration-200 cursor-pointer"
             >
               Formatear
             </button>
@@ -239,7 +222,7 @@ export default function PresetsPageClient() {
               {phoneInput ? (validatePhoneAR(phoneInput) ? "Válido" : "Inválido") : "—"}
             </span>
           </div>
-          <p className="text-sm text-gray-400 mb-4">Preset: {phonePreset ?? "—"}</p>
+          <p className="text-sm text-gray-400 mb-4">Formato: {phonePreset ?? "Por defecto"}</p>
           <div className="space-y-3">
             <input
               value={phoneInput}
@@ -249,7 +232,7 @@ export default function PresetsPageClient() {
             />
             <button
               onClick={() => setPhoneInput(formatPhone(phoneInput))}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg border border-blue-500 hover:bg-blue-700 hover:border-blue-400 transition-colors duration-200 cursor-pointer"
             >
               Formatear
             </button>
@@ -266,7 +249,7 @@ export default function PresetsPageClient() {
               {cbuInput ? (validateCBU(cbuInput) ? "Válido" : "Inválido") : "—"}
             </span>
           </div>
-          <p className="text-sm text-gray-400 mb-4">Preset: {cbuPattern ?? "—"}</p>
+          <p className="text-sm text-gray-400 mb-4">Formato: {cbuPattern ?? "Por defecto"}</p>
           <div className="space-y-3">
             <input
               value={cbuInput}
@@ -276,95 +259,11 @@ export default function PresetsPageClient() {
             />
             <button
               onClick={() => setCbuInput(formatCbu(cbuInput))}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg border border-blue-500 hover:bg-blue-700 hover:border-blue-400 transition-colors duration-200 cursor-pointer"
             >
               Formatear
             </button>
           </div>
-        </div>
-        </div>
-      </div>
-
-      {/* Presets Section */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-white mb-4">Formatos Personalizados</h2>
-        <p className="text-gray-400 mb-6">Crea y gestiona tus propios formatos de validación</p>
-        
-        <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700 mb-6">
-          <h3 className="text-xl font-semibold text-white mb-6">Crear Nuevo Formato</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Nombre del preset"
-            className="px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            value={pattern}
-            onChange={(e) => setPattern(e.target.value)}
-            placeholder="Patrón (ej: NN-NNNNNNNN-N)"
-            className="px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            onClick={save}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
-          >
-            Guardar Preset
-          </button>
-        </div>
-      </div>
-
-        </div>
-        
-        <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-          <h3 className="text-xl font-semibold text-white mb-6">Mis Formatos Guardados</h3>
-        <div className="space-y-3">
-          {items.map((item) => (
-            <div key={item.id} className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg">
-              <div>
-                <span className="font-medium text-white">{item.name}</span>
-                <span className="ml-2 px-2 py-1 text-xs bg-gray-600 text-gray-300 rounded">
-                  {item.type}
-                </span>
-                {item.isDefault && (
-                  <span className="ml-2 px-2 py-1 text-xs bg-blue-600 text-white rounded">
-                    Por defecto
-                  </span>
-                )}
-                {item.pattern && (
-                  <p className="text-sm text-gray-400 mt-1">Patrón: {item.pattern}</p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        <div className="flex gap-4 mt-6">
-          <a 
-            href="/api/presets/export" 
-            className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 inline-flex items-center"
-          >
-            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-            Exportar Presets
-          </a>
-          <input 
-            type="file" 
-            accept="application/json"
-            onChange={async (e) => {
-              const file = e.target.files?.[0]; 
-              if (!file) return;
-              const text = await file.text();
-              await fetch("/api/presets/import", { 
-                method: "POST", 
-                headers: { "Content-Type": "application/json" }, 
-                body: text 
-              });
-              load();
-            }}
-            className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 cursor-pointer"
-          />
         </div>
       </div>
     </main>
